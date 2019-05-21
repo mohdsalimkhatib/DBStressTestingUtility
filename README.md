@@ -8,6 +8,6 @@ Currently "dataSourceForStress" is configured to H2 database.
 2. numberofUsers - is the number of concurrent users sharing the connection pool
 3. queryExecutionTimeMs - query execution time for each user.
 
-A "Read timeout" exception will be thrown if the users are starving for the connection objects in the pool.
+A "Read timeout" exception will be thrown if the users are starving for more time then specific in the configuration for the connection objects in the pool.
 
 
