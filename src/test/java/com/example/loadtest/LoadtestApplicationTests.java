@@ -24,11 +24,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Configuration
-class TrackingJdbcConfigurationForStressTest{
+class DataSourceConfigurationForStressTest{
 
     @Bean
     @Qualifier("dataSourceForStressTesting")
-    public HikariDataSource trackingDataSourceForStress() {
+    public HikariDataSource dataSourceForStress() {
         HikariConfig config = new HikariConfig();
         config.setDataSourceClassName("org.h2.jdbcx.JdbcDataSource");
         config.setConnectionTestQuery("VALUES 1");
@@ -45,7 +45,7 @@ class TrackingJdbcConfigurationForStressTest{
 }
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = TrackingJdbcConfigurationForStressTest.class)
+@ContextConfiguration(classes = DataSourceConfigurationForStressTest.class)
 public class LoadtestApplicationTests {
 
     int maxPoolSize = 1;
@@ -54,13 +54,13 @@ public class LoadtestApplicationTests {
 
     @Autowired
     @Qualifier("dataSourceForStressTesting")
-    private HikariDataSource trackingDataSourceForStress;
+    private HikariDataSource dataSourceForStress;
 
     String sql = "select * from dual";
 
     @Before
     public void init(){
-        trackingDataSourceForStress.setMaximumPoolSize(maxPoolSize);
+        dataSourceForStress.setMaximumPoolSize(maxPoolSize);
     }
 
     @Test
@@ -87,7 +87,7 @@ public class LoadtestApplicationTests {
         Statement stmt = null;
         ResultSet rs = null;
         try {
-            connection = trackingDataSourceForStress.getConnection();
+            connection = dataSourceForStress.getConnection();
             stmt = connection.createStatement();
             rs = stmt.executeQuery(sql);
 
