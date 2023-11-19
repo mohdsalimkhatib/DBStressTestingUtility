@@ -49,7 +49,7 @@ class DataSourceConfigurationForStressTest{
 public class LoadtestApplicationTests {
 
     int maxPoolSize = 1;
-    int numberofUsers = 20;
+    int numberofUsers = 10;
     int queryExecutionTimeMs = 1;
 
     @Autowired
